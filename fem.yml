@@ -1,0 +1,26 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Install zsh
+      apt: name=zsh
+    - name: Change shell to zsh
+      shell: chsh -s `which zsh`
+    - name: Install oh-my-zsh
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    - name: Install zsh-autosuggestions
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+        dest: ~/.oh-my-zsh/plugins/zsh-autosuggestions
+    - name: Install zsh-syntax-highlighting
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        dest: ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
+    - name: Update .zshrc
+      blockinfile:
+        path: ~/.zshrc
+        block: |
+          plugins=(
+            git
+            zsh-autosuggestions
+            zsh-syntax-highlighting
+          )
