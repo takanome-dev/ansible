@@ -1,0 +1,15 @@
+- name: Install Node.js
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+  tags: node
+
+- name: Install n
+  npm:
+    name: n
+    global: yes
+  tags: node
+
+- name: Install latest Node.js
+  shell: n latest
+  tags: node
