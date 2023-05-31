@@ -1,4 +1,10 @@
 - hosts: localhost
+  # TODO: add multiple ssh keys here
+  vars:
+    source_key: "./.ssh/id_rsa"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+
   become: true
   pre_tasks:
     - name: Update apt cache
